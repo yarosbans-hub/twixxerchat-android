@@ -36,4 +36,16 @@ if (fs.existsSync(varsPath)) {
   console.error('Не найден variables.gradle');
   problems++;
 }
+// 3. Клавиатура: окно уменьшается под клавиатуру, а не сдвигает всю страницу вверх (режим adjustPan)
+const activityPath = path.join(base, 'app', 'src', 'main', 'AndroidManifest.xml');
+if (fs.existsSync(activityPath)) {
+  let a = fs.readFileSync(activityPath, 'utf8');
+  a = a.replace(/<activity\s+android:name="\.MainActivity"([^>]*?)(\/?)>/, (full, attrs, close) => {
+    if (/windowSoftInputMode/.test(attrs)) return full;
+    return `<activity android:name=".MainActivity"${attrs} android:windowSoftInputMode="adjustResize"${close}>`;
+  });
+  fs.writeFileSync(activityPath, a);
+  console.log('MainActivity: windowSoftInputMode = adjustResize');
+}
+
 if (problems) process.exit(1);

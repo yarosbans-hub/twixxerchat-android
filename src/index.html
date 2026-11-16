@@ -5183,6 +5183,14 @@ myAvatar = canvas.toDataURL('image/jpeg', 0.9);
                 });
             })();
 
+            // Поле ввода не должно прятаться под клавиатурой: прокручиваем его в центр экрана
+            document.addEventListener('focusin', (e) => {
+                const t = e.target;
+                if (!t || !(t.tagName === 'INPUT' || t.tagName === 'TEXTAREA')) return;
+                if (!document.documentElement.classList.contains('capacitor-app')) return;
+                setTimeout(() => { try { t.scrollIntoView({ block: 'center', behavior: 'smooth' }); } catch (err) {} }, 350);
+            });
+
             // ===== Пересылка сообщений и Избранное =====
             function addSystemLine(text) {
                 const item = document.createElement('li');
