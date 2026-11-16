@@ -1,0 +1,14 @@
+{
+  "appId": "chat.twixxer.app",
+  "appName": "TwixxerChat",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https"
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 600,
+      "backgroundColor": "#14101f"
+    }
+  }
+}
